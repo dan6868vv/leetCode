@@ -20,12 +20,10 @@ public:
     ListNode *reverseList(ListNode *head) {
         if (head->next->next == nullptr) {
             head->next->next = head;
-            //TODO
-        }
-        else if(head->next == nullptr) {
-            //TODO
-        }
-        else reverseList(head->next);
+            head->next = nullptr;
+        } else if (head->next == nullptr) {
+            
+        } else reverseList(head->next);
     }
 
     void printList(ListNode *head) {
@@ -47,5 +45,5 @@ int main() {
     sol.printList(&head);
     std::cout << std::endl;
     sol.printList(sol.reverseList(&head));
-    return 1;
+    return 0;
 }
