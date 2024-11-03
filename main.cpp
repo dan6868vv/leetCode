@@ -61,5 +61,5 @@ int main() {
     sol.printList(&head);
     std::cout << std::endl;
     sol.printList(sol.reverseList(&head));
-    return 0;
+    return 1;
 }
