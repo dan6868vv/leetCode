@@ -20,20 +20,14 @@ public:
     ListNode *mergeTwoLists(ListNode *list1, ListNode *list2) {
         if (list1 == nullptr && list2 == nullptr) return nullptr;
         if (list1 == nullptr || list2 == nullptr) return list1 == nullptr ? list2 : list1;
-        ListNode *node = list1->val < list2->val ? list1 : list2;
-        while (list2->next != nullptr || list1->next != nullptr) {
-            if (list2->val < list1->val) {
-                node->next = list1;
-                list1 = list1->next;
-            } else {
-                node->next = list2;
-                list2 = list2->next;
-            }
+        // Return and set the next pointer of the smaller node
+        if (list1->val < list2->val) {
+            list1->next = mergeTwoLists(list1->next, list2);
+            return list1;
+        } else {
+            list2->next = mergeTwoLists(list1, list2->next);
+            return list2;
         }
-        if ((list2->next != nullptr || list1->next != nullptr) && !(list2->next != nullptr && list1->next != nullptr)) {
-            return node->next = list1->next == nullptr ? list2 : list1;
-        }
-        return node;
     }
 
     void coutListNode(ListNode *list) {
