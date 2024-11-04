@@ -5,29 +5,43 @@
 
 class Solution {
 public:
-    int singleNumber(std::vector<int>& nums) {
+    std::vector<std::vector<int>> generate(int numRows) {
+        std::vector<std::vector<int>> returnVectors;
+        if(numRows==0) return returnVectors;
+        std::vector<int> firstVector;
+        firstVector.push_back(1);
+        returnVectors.push_back(firstVector);
+        if(numRows==1) return returnVectors;
+        std::vector<int> secondVecor;
+        secondVecor.push_back(1);
+        secondVecor.push_back(1);
 
-        if(nums.size()==1) return nums[0];
-
-        if(nums[1]-nums[0]!=0) return nums[0];
-        sort(nums.begin(), nums.end());
-        for(int i=0;i<nums.size()-1;i++) {
-            if(nums[i-1] - nums[i] != 0 && nums[i+1] - nums[i] != 0) return nums[i];
-
+        for(int i=1;i<numRows;i++) {
+            returnVectors.push_back(getNextVector(returnVectors[i]));
         }
-        return nums[nums.size()-1];
+        return returnVectors;
     }
 
+    std::vector<int> getNextVector(std::vector<int> nums1) {
+        std::vector<int> nums2;
+        nums2.push_back(1);
+        for(int i=0;i<nums1.size()-1;i++) {
+            nums2.push_back(nums1[i]+nums2[i+1]);
+        }
+        nums2.push_back(1);
+        return nums2;
+    }
 };
 
 int main() {
     Solution sol;
-    std::vector<int> nums;
-    nums.push_back(2);
-    nums.push_back(2);
-    nums.push_back(1);
-    // nums.push_back(2);
-    // nums.push_back(2);
-    std::cout << sol.singleNumber(nums);
+    std::vector<std::vector<int>> nums;
+    nums = sol.generate(5);
+    for(int i=0;i<nums.size();i++) {
+        for(int j=0;j < nums[i].size();j++) {
+            std::cout << nums[i][j] << " ";
+        }
+        std::cout << "|";
+    }
     return 1;
 }
